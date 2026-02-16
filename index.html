@@ -217,6 +217,11 @@ button:hover{
 }
 
 
+.backBtn{
+ background:#ffffff;
+ color:#5a004f;
+ margin-top:15px;
+}
 
 
 </style>
@@ -244,11 +249,17 @@ button:hover{
 </div>
 <button onclick="nextSlide()">Next 💕</button>
 <button onclick="showLetter()">Read My Heart 💌</button>
+<button onclick="goBack()" class="backBtn">⬅ Back</button>
+
+
 </div>
 
 <div class="glass hidden" id="letter">
 <h2>For Riya ❤️</h2>
 <p id="typeText"></p>
+<button onclick="goBack()" class="backBtn">⬅ Back</button>
+
+
 <button id="downloadBtn" class="hidden" onclick="downloadCard()">Download Card 💌</button>
 
 <button onclick="showGift()">Open Your Gift 🎁</button>
@@ -274,6 +285,7 @@ button:hover{
       <div class="portrait-caption">My Forever Moment 💖</div>
     </div>
   </div>
+  <button onclick="goBack()" class="backBtn">⬅ Back</button>
 </div>
 
 
@@ -298,6 +310,9 @@ button:hover{
 
 <script>
 
+let currentPage = "code";
+
+
 const music = document.getElementById("bgMusic");
 const slider = document.getElementById("volumeSlider");
 
@@ -316,11 +331,13 @@ function checkCode(){
  }else{
    error.innerText="Wrong code 😢";
  }
+ currentPage = "landing";
 }
 
 function showMemories(){
  landing.classList.add("hidden");
  memories.classList.remove("hidden");
+ currentPage = "memories";
 }
 
 let images=[];
@@ -338,6 +355,7 @@ function nextSlide(){
 function showLetter(){
  memories.classList.add("hidden");
  letter.classList.remove("hidden");
+ currentPage = "letter";
  typeWriter();
 }
 
@@ -383,13 +401,14 @@ function downloadCard(){
 function showGift(){
  letter.classList.add("hidden");
  giftSection.classList.remove("hidden");
+ currentPage = "gift";
 }
 
 function openGift(){
  document.querySelector(".gift").classList.add("open");
 
  document.getElementById("finalMsg").innerHTML =
- "Riya Rathour ❤️<br><br>Har din tum special ho. Har pal tum priceless ho.<br><br>Happy Monday 💖";
+ "From Raju ❤️<br><br>Har din tum special ho. Har pal tum priceless ho.<br><br>Happy Monday 💖";
 
  startHearts();
 
@@ -423,6 +442,50 @@ document.addEventListener("mousemove",(e)=>{
  document.body.appendChild(heart);
  setTimeout(()=>heart.remove(),1000);
 });
+
+
+
+
+
+function goBack(){
+ memories.classList.add("hidden");
+ letter.classList.add("hidden");
+ giftSection.classList.add("hidden");
+
+ codeScreen.classList.remove("hidden");
+}
+
+
+
+
+function goBack(){
+
+ if(currentPage === "landing"){
+   landing.classList.add("hidden");
+   codeScreen.classList.remove("hidden");
+   currentPage = "code";
+ }
+
+ else if(currentPage === "memories"){
+   memories.classList.add("hidden");
+   landing.classList.remove("hidden");
+   currentPage = "landing";
+ }
+
+ else if(currentPage === "letter"){
+   letter.classList.add("hidden");
+   memories.classList.remove("hidden");
+   currentPage = "memories";
+ }
+
+ else if(currentPage === "gift"){
+   giftSection.classList.add("hidden");
+   letter.classList.remove("hidden");
+   currentPage = "letter";
+ }
+
+}
+
 
 </script>
 </body>
