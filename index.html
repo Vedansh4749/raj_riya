@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Riya ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#ffd6e8,#ffeaf5,#f3d9ff);
+  display:flex;justify-content:center;align-items:center;
+  color:white;overflow-x:hidden;
+}
+.glass{
+  background:rgba(255,255,255,0.4);
+  backdrop-filter:blur(20px);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 8px 30px rgba(255,105,180,0.2);
+  width:90%;max-width:500px;
+  color:#5a004f;
+}
+input,button{
+  padding:12px 20px;
+  border:none;outline:none;
+  border-radius:50px;
+  margin-top:15px;
+}
+button{
+  cursor:pointer;
+  background:#ff4da6;
+  color:white;
+  transition:0.3s;
+}
+button:hover{background:#ff1a8c;transform:scale(1.05)}
+.hidden{display:none}
+.slideshow img{
+  width:100%;border-radius:20px;margin-top:15px;
+}
+.gift{
+  font-size:60px;
+  margin-top:20px;
+  cursor:pointer;
+  transition:0.5s;
+}
+.open{transform:rotate(20deg) scale(1.2)}
+
+.heart{
+ position:fixed;
+ bottom:-20px;
+ animation:floatUp linear forwards;
+ pointer-events:none;
+}
+@keyframes floatUp{
+ 0%{transform:translateY(0) scale(1);opacity:0}
+ 10%{opacity:1}
+ 100%{transform:translateY(-110vh) scale(1.3);opacity:0}
+}
+
+
+body{
+ animation:fadeIn 1.5s ease-in-out;
+}
+
+
+
+
+
+@keyframes fadeIn{
+ from{opacity:0; transform:scale(1.02);}
+ to{opacity:1; transform:scale(1);}
+}
+
+
+.cursor-heart{
+ position:fixed;
+ pointer-events:none;
+ animation:trail 1s linear forwards;
+}
+
+@keyframes trail{
+ from{opacity:1; transform:translateY(0) scale(0.5);}
+ to{opacity:0; transform:translateY(-20px) scale(1.5);}
+}
+
+
+#musicControl{
+ position:fixed;
+ bottom:15px;
+ left:15px;
+ background:rgba(255,255,255,0.4);
+ backdrop-filter:blur(15px);
+ padding:10px 15px;
+ border-radius:50px;
+ display:flex;
+ align-items:center;
+ gap:8px;
+ font-size:14px;
+}
+
+#musicControl input{
+ width:80px;
+}
+
+
+
+
+</style>
+</head>
+<body>
+
+<div class="glass" id="codeScreen">
+  <h2>Enter the Secret Code 💌</h2>
+  <input type="password" id="codeInput" placeholder="Enter code">
+  <br>
+  <button onclick="checkCode()">Unlock ❤️</button>
+  <p id="error" style="color:#ff99cc;margin-top:10px;"></p>
+</div>
+
+<div class="glass hidden" id="landing">
+  <h1>Happy Birthday Riya Rathour ❤️</h1>
+  <p>You are my favorite hello and my hardest goodbye ✨</p>
+  <button onclick="showMemories()">See Our Memories 📸</button>
+</div>
+
+<div class="glass hidden" id="memories">
+  <h2>Our Beautiful Memories 💞</h2>
+  <div class="slideshow">
+    <img id="slide" src="https://picsum.photos/500/300?1">
+  </div>
+  <button onclick="nextSlide()">Next 💕</button>
+  <button onclick="showLetter()">Read My Heart 💌</button>
+</div>
+
+<div class="glass hidden" id="letter">
+  <h2>For Riya ❤️</h2>
+  <p id="typeText"></p>
+  <button onclick="showGift()">Open Your Gift 🎁</button>
+</div>
+
+<div class="glass hidden" id="giftSection">
+  <h2>Just For You Riya 💖</h2>
+  <div class="gift" onclick="openGift()">🎁</div>
+  <p id="finalMsg"></p>
+</div>
+
+<script>
+function checkCode(){
+  if(document.getElementById("codeInput").value==="1005"){
+    music.play();
+    codeScreen.classList.add("hidden");
+    landing.classList.remove("hidden");
+  }else{
+    error.innerText="Wrong code 😢 Try again.";
+  }
+}
+
+function showMemories(){
+  landing.classList.add("hidden");
+  memories.classList.remove("hidden");
+}
+
+let images=[
+"images/1.jpeg",
+"images/2.jpeg",
+"images/3.jpeg",
+"images/4.jpeg",
+"images/5.jpeg",
+"images/6.jpeg",
+"images/7.jpeg",
+"images/8.jpeg",
+"images/9.jpeg",
+"images/10.jpeg"
+];
+
+let index=0;
+function nextSlide(){
+  index=(index+1)%images.length;
+  slide.src=images[index];
+}
+
+function showLetter(){
+  memories.classList.add("hidden");
+  letter.classList.remove("hidden");
+  typeWriter();
+}
+
+let text=`Aaj se kuch saal pehle ek ladki paida hui thi jise duniya Riya ke naam se jaanti hai...
+
+Par mere liye, woh meri sukoon, mera shor,
+aur meri muskurahat ki wajah ban gayi.
+
+Pata nahi aage kya hoga, par itna zaroor hai —
+tumse milna kismat ka khel tha.
+
+Tum meri yaadon, meri kahaniyon, mere dinon ka hissa ban chuki ho...
+
+Aur aaj bas yahi kehna tha —
+
+You are deeply appreciated... ❤️`;
+
+let i=0;
+function typeWriter(){
+  if(i<text.length){
+    document.getElementById("typeText").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(typeWriter,40);
+  }
+}
+
+function showGift(){
+  letter.classList.add("hidden");
+  giftSection.classList.remove("hidden");
+}
+
+let heartInterval;
+
+function openGift(){
+ document.querySelector(".gift").classList.add("open");
+ document.getElementById("finalMsg").innerHTML=`
+ Riya Rathour ❤️<br><br>
+ Aaj ka din sirf tumhara hai…  
+ Tum meri life ki sabse khoobsurat kahani ho.  
+ Har saal nahi, har din tum special ho.  
+ <br><br>
+ Happy Birthday My Forever 💖✨
+ `;
+
+ startHearts();
+
+ let audio=new Audio("music.mp3");
+ audio.play();
+}
+
+function startHearts(){
+ heartInterval=setInterval(()=>{
+   let heart=document.createElement("div");
+   heart.className="heart";
+   heart.innerHTML=["❤️","💖","💗","💓"][Math.floor(Math.random()*4)];
+   heart.style.left=Math.random()*100+"vw";
+   heart.style.fontSize=(Math.random()*25+15)+"px";
+   heart.style.animationDuration=(Math.random()*3+3)+"s";
+   document.body.appendChild(heart);
+   setTimeout(()=>heart.remove(),6000);
+ },300);
+}
+
+
+
+
+
+document.addEventListener("mousemove",(e)=>{
+ let heart=document.createElement("div");
+ heart.className="cursor-heart";
+ heart.innerHTML="💕";
+ heart.style.left=e.clientX+"px";
+ heart.style.top=e.clientY+"px";
+ heart.style.fontSize=(Math.random()*10+10)+"px";
+ document.body.appendChild(heart);
+ setTimeout(()=>heart.remove(),1000);
+});
+
+
+
+
+let music = document.getElementById("bgMusic");
+
+music.volume = 0.3;
+
+document.getElementById("volumeSlider").addEventListener("input", function(){
+ music.volume = parseFloat(this.value);
+});
+
+
+
+
+
+</script>
+
+
+
+
+<audio id="bgMusic" src="music.mp3" loop autoplay></audio>
+
+<div id="musicControl">
+  🔊
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.3">
+</div>
+
+
+
+</body>
+</html>
